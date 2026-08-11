@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Database
+*.db
+
+# Uploaded files
+uploads/
+
+# IDE
+.vscode/
+.idea/
+
+uploads_backup
+
+# OS files
+.DS_Store
+Thumbs.db

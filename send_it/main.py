@@ -2,7 +2,6 @@ import json
 import os
 from datetime import datetime
 from typing import Optional
-from fastapi.responses import HTMLResponse
 
 import aiofiles
 from dotenv import load_dotenv
@@ -16,13 +15,22 @@ from fastapi import (
     Request,
     UploadFile,
 )
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from sqlmodel import Session, select
 
 load_dotenv()
+
+# ==========================================================
+# TEMPLATES
+# ==========================================================
+
+templates = Jinja2Templates(directory="send_it/templates")
+
 
 from auth import (
     create_access_token,
@@ -32,6 +40,7 @@ from auth import (
     hash_password,
     verify_password,
 )
+
 from database.session import create_db_and_tables, get_session
 from models.document import Document
 from models.user import User, UserCreate, UserResponse
@@ -103,15 +112,15 @@ def startup():
 
 
 # ==========================================================
-# HOME
+# PORTFOLIO HOME
 # ==========================================================
 
-@app.get("/")
-def home():
-    return {
-        "message": "Welcome to SendIt API",
-        "status": "Running",
-    }
+@app.get("/", response_class=HTMLResponse)
+async def portfolio(request: Request):
+    return templates.TemplateResponse(
+        "portfolio.html",
+        {"request": request}
+    )
 
 
 # ==========================================================
@@ -462,7 +471,6 @@ def list_documents(
     return session.exec(query).all()
 
 
-
 # ==========================================================
 # SEARCH DOCUMENTS
 # ==========================================================
@@ -486,7 +494,6 @@ def search_documents(
     )
 
     return session.exec(query).all()
-
 
 
 # ==========================================================
@@ -532,21 +539,27 @@ def get_document(
     return document
 
 
-
 # ==========================================================
 # DELETE DOCUMENT
 # ==========================================================
 
-@app.delete("/documents/{document_id}")
+@app.delete(
+    "/documents/{document_id}"
+)
 def delete_document(
     document_id: int,
-    session: Session = Depends(get_session),
-    current_user: User = Depends(get_current_user),
+    session: Session = Depends(
+        get_session
+    ),
+    current_user: User = Depends(
+        get_current_user
+    ),
 ):
     document = session.exec(
         select(Document).where(
             Document.id == document_id,
-            Document.uploader_id == current_user.id,
+            Document.uploader_id
+            == current_user.id,
         )
     ).first()
 
@@ -558,7 +571,9 @@ def delete_document(
 
     if (
         document.file_path
-        and os.path.exists(document.file_path)
+        and os.path.exists(
+            document.file_path
+        )
     ):
         os.remove(document.file_path)
 

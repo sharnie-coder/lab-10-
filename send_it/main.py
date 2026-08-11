@@ -29,7 +29,7 @@ load_dotenv()
 # TEMPLATES
 # ==========================================================
 
-templates = Jinja2Templates(directory="send_it/templates")
+templates = Jinja2Templates(directory="templates")
 
 
 from auth import (
@@ -113,13 +113,12 @@ def startup():
 
 # ==========================================================
 # PORTFOLIO HOME
-# ==========================================================
-
 @app.get("/", response_class=HTMLResponse)
 async def portfolio(request: Request):
     return templates.TemplateResponse(
-        "portfolio.html",
-        {"request": request}
+        request=request,
+        name="portfolio.html",
+        context={"request": request}
     )
 
 

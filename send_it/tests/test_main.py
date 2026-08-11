@@ -8,8 +8,5 @@ def test_home():
     response = client.get("/")
 
     assert response.status_code == 200
-
-    data = response.json()
-
-    assert data["message"] == "Welcome to SendIt API"
-    assert data["status"] == "Running"
+    # Checks that the root route returns the HTML portfolio title
+    assert "Backend Development Portfolio" in response.text

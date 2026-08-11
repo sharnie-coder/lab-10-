@@ -1,3 +1,24 @@
+# Testing / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Database
+*.db
+
+# Uploaded files
+uploads/
+uploads_backup/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
 # Python
 __pycache__/
 *.py[cod]
@@ -10,25 +31,3 @@ env/
 
 # Environment variables and secrets
 .env
-
-# Testing / coverage
-.pytest_cache/
-.coverage
-coverage.xml
-htmlcov/
-
-# Database
-*.db
-
-# Uploaded files
-uploads/
-
-# IDE
-.vscode/
-.idea/
-
-uploads_backup
-
-# OS files
-.DS_Store
-Thumbs.db

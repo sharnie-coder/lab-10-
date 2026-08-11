@@ -35,7 +35,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.14"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -51,10 +51,11 @@ jobs:
           WEATHER_API_URL: https://api.open-meteo.com/v1/forecast
           MAX_UPLOAD_SIZE: 5242880
         run: |
+          cd send_it
           pytest tests/ -v --cov=. --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v5
         with:
-          files: ./coverage.xml
+          files: ./send_it/coverage.xml
           fail_ci_if_error: false

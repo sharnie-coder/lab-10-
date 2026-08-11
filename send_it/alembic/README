@@ -1,1 +1,57 @@
-Generic single-database configuration.
+C027-01-2727/2024  OTIENO.A .SHARNICE
+
+# SendIt API
+
+## Overview
+Brief description of what SendIt does.
+
+## Features
+- User authentication
+- Document management
+- File uploads
+- PostgreSQL database
+- RESTful API
+- API documentation with Swagger
+
+## Tech Stack
+- Python
+- FastAPI
+- SQLModel / SQLAlchemy
+- PostgreSQL
+- Docker
+- GitHub Actions
+- Pytest
+
+## Project Structure
+...
+
+## Installation & Setup
+
+### Clone the repository
+
+### Create environment
+
+### Install dependencies
+
+### Environment variables
+
+## Running with Docker
+
+...
+
+## Running Tests
+
+...
+
+## API Documentation
+
+Once running locally:
+
+`http://localhost:8000/docs`
+
+## Deployment
+
+...
+
+## Author
+...
